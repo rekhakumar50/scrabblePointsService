@@ -54,6 +54,11 @@ public class ScoreService {
     }
 	
 	
+	/**
+	 * Check word exist in DB
+	 * @param scoreDto
+	 * @return
+	 */
 	public boolean existsByWord(final ScoreDto scoreDto) {
 		boolean isWordExist = false;
 		if(Objects.nonNull(scoreDto) 
@@ -65,9 +70,13 @@ public class ScoreService {
 	}
 	
 	
+	/**
+	 * Get Top 10 Scores from DB
+	 * @return
+	 */
 	private List<ScoreDto> getAllLimited() {
 		List<ScoreDto> scores = null;
-        Page<Score> page = scoreRepository.findAll(PageRequest.of(0, 10, Sort.by(Sort.Order.desc("score"))));
+        Page<Score> page = scoreRepository.findAll(PageRequest.of(0, 10, Sort.by(Sort.Order.desc("score"), Sort.Order.asc("word"))));
         if(Objects.nonNull(page) && CollectionUtils.isNotEmpty(page.getContent())) {
         	scores = page.getContent().stream()
         							.filter(Objects::nonNull)

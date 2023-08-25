@@ -16,7 +16,7 @@ public interface ScoreRepository extends JpaRepository<Score, Long> {
 	
     Page<Score> findAll(Pageable pageable);  
     
-    @Query(value = "SELECT * FROM Scores s ORDER BY s.score DESC LIMIT 10", nativeQuery = true)
+    @Query(value = "SELECT * FROM Scores s ORDER BY s.score DESC, s.word LIMIT 10", nativeQuery = true)
     List<Score> getScoreWithLimit();
 
 }
